@@ -9,7 +9,8 @@ namespace FintessCode.BL.Model
     /// <summary>
     /// User.
     /// </summary>
-    internal class User
+    [Serializable]
+    public class User
     {
         #region properties
         /// <summary>
