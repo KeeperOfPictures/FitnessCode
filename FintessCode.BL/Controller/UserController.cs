@@ -12,19 +12,35 @@ namespace FintessCode.BL.Controller
         /// <summary>
         /// User.
         /// </summary>
-        public User User { get;}
+        public List<User> Users { get;}
+
+        public User CurrentUser { get; }
+
+        public bool IsNewUser { get; } = false;
 
         /// <summary>
         /// Create new user controller.
         /// </summary>
         /// <param name="user"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UserController(string userName, string genderName, DateTime birthDay, double weight, double height)
+        public UserController(string userName)
         {
-            // TODO: Checking
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new ArgumentNullException("User name cannot be empty or null.",nameof(userName));
+            }
 
-            var gender = new Gender(genderName);
-            User = new User(userName, gender, birthDay, weight, height);
+            Users = GetUsersData();
+
+            CurrentUser = Users.SingleOrDefault(u => u.Name == userName);
+
+            if(CurrentUser == null)
+            {
+                CurrentUser = new User(userName);
+                Users.Add(CurrentUser);
+                IsNewUser = true;
+                Save();
+            }
         }
 
         /// <summary>
@@ -36,27 +52,40 @@ namespace FintessCode.BL.Controller
 
             using(var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, User);
+                formatter.Serialize(fs, Users);
             }
         }
 
         /// <summary>
-        /// Load user data.
+        /// Get users data.
         /// </summary>
         /// <returns> User. </returns>
         /// <exception cref="FileLoadException"></exception>
-        public UserController()
+        private List<User> GetUsersData()
         {
             var formatter = new BinaryFormatter();
             using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             { 
-               if(formatter.Deserialize(fs) is User user)
+               if(formatter.Deserialize(fs) is List<User> users)
                 {
-                    User = user;
+                    return users;
                 }
-
-                //TODO: What to do if the user is not read?
+                else
+                {
+                    return new List<User>();
+                }
             }
         }
-     }
+        
+        public void SetNewUserData(string genderName, DateTime birthDate, double weight = 1, double height = 1)
+        {
+            // Checking.
+
+            CurrentUser.Gender = new Gender(genderName);
+            CurrentUser.BirthDate = birthDate;
+            CurrentUser.Weight = weight;
+            CurrentUser.Height = height;
+            Save();
+        }
+    }
 }
