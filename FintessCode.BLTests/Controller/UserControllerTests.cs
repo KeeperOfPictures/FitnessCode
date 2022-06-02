@@ -48,11 +48,5 @@ namespace FintessCode.BL.Controller.Tests
             // Assert
             Assert.AreEqual(userName, controller.CurrentUser.Name);
         }
-
-        [TestMethod()]
-        public void SetNewUserDataTest()
-        {
-            Assert.Fail();
-        }
     }
 }
