@@ -1,5 +1,7 @@
 ﻿using FintessCode.BL.Controller;
 using FintessCode.BL.Model;
+using System.Globalization;
+using System.Resources;
 
 namespace FintessCode.CMD
 {
@@ -7,9 +9,12 @@ namespace FintessCode.CMD
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the FitnessCode App.");
+            var culture = CultureInfo.CreateSpecificCulture("ru-ru");
+            var resourceManager = new ResourceManager("FintessCode.CMD.Languages.Messages", typeof(Program).Assembly);
 
-            Console.WriteLine("Enter username");
+            Console.WriteLine(resourceManager.GetString("Hello",culture));
+
+            Console.WriteLine(resourceManager.GetString("EnterName",culture));
 
             var name = Console.ReadLine();
 
@@ -17,7 +22,7 @@ namespace FintessCode.CMD
             var eatingController = new EatingController(userController.CurrentUser);
             if (userController.IsNewUser)
             {
-                Console.Write("Enter gender: ");
+                Console.Write(resourceManager.GetString("EnterGender",culture));
                 var gender = Console.ReadLine();
                 var birthDate = ParseDateTime();
                 double weight = ParseDouble("weight");
