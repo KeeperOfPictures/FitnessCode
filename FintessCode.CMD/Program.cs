@@ -9,12 +9,10 @@ namespace FintessCode.CMD
     {
         static void Main(string[] args)
         {
-            var culture = CultureInfo.CreateSpecificCulture("ru-ru");
-            var resourceManager = new ResourceManager("FintessCode.CMD.Languages.Messages", typeof(Program).Assembly);
 
-            Console.WriteLine(resourceManager.GetString("Hello",culture));
+            Console.WriteLine("Welcome to FitnessCode app.");
 
-            Console.WriteLine(resourceManager.GetString("EnterName",culture));
+            Console.WriteLine("Enter your username:");
 
             var name = Console.ReadLine();
 
@@ -23,7 +21,7 @@ namespace FintessCode.CMD
             var exerciseController = new ExerciseController(userController.CurrentUser);
             if (userController.IsNewUser)
             {
-                Console.Write(resourceManager.GetString("EnterGender",culture));
+                Console.Write("Enter your Gender: ");
                 var gender = Console.ReadLine();
                 var birthDate = ParseDateTime("date of birth");
                 double weight = ParseDouble("weight");
@@ -116,7 +114,7 @@ namespace FintessCode.CMD
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid {value} format.");
+                    Console.WriteLine("Invalid date of birth format.");
                 }
             }
 
@@ -130,11 +128,15 @@ namespace FintessCode.CMD
                 Console.Write($"Enter {name}: ");
                 if (double.TryParse(Console.ReadLine(), out double value))
                 {
+                    if(value <= 0)
+                    {
+                        throw new ArgumentException($"{name} cannot be less than or equal to 0.");
+                    }
                     return value;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid date of birth format.");
+                    Console.WriteLine($"Invalid {value} format.");
                 }
             }
         }

@@ -13,6 +13,9 @@ namespace FintessCode.BL.Model
     public class User
     {
         #region properties
+
+        public int Id { get; set; }
+
         /// <summary>
         /// Name.
         /// </summary>
@@ -21,12 +24,13 @@ namespace FintessCode.BL.Model
         /// <summary>
         /// Name.
         /// </summary>
-        public Gender Gender { get; set; }
+        public int? GenderId { get; set; }
+        public virtual Gender Gender { get; set; }
 
         /// <summary>
         /// Date of birth.
         /// </summary>
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Weight.
@@ -37,6 +41,12 @@ namespace FintessCode.BL.Model
         /// Height.
         /// </summary>
         public double Height { get; set; }
+        
+
+        public virtual ICollection<Eating> Eatings { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
+
+        public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
         #endregion
 
         /// <summary>
@@ -89,7 +99,7 @@ namespace FintessCode.BL.Model
             Height = height;
         }
 
-        public int Age { get { return DateTime.Now.Year - BirthDate.Year; } }
+        public User() { }
 
         public User(string name) 
         {

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FintessCode.BL", "FintessCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FintessCode.CMD", "FintessCode.CMD\FintessCode.CMD.csproj", "{EAF8DD61-D2FF-45C0-80E9-0FD92878F5D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FintessCode.BLTests", "FintessCode.BLTests\FintessCode.BLTests.csproj", "{6DD9444B-070B-4749-A7B1-E0092AF375B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FintessCode.BLTests", "FintessCode.BLTests\FintessCode.BLTests.csproj", "{6DD9444B-070B-4749-A7B1-E0092AF375B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
