@@ -107,7 +107,7 @@ namespace FintessCode.CMD
             DateTime birthDate;
             while (true)
             {
-                Console.Write($"Enter {value} (dd.MM.yyyy): ");
+                Console.Write($"Enter {value} (dd.MM.yyyy (hh:mm)): ");
                 if (DateTime.TryParse(Console.ReadLine(), out birthDate))
                 {
                     break;

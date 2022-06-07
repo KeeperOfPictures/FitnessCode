@@ -2,7 +2,7 @@
 {
     public abstract class ControllerBase
     {
-        private readonly IDataSaver manager = new DatabaseSaver();
+        private readonly IDataSaver manager = new SerializableSaver();
 
         protected void Save<T>(List<T> item) where T : class
         {
